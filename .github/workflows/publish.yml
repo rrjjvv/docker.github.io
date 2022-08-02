@@ -42,10 +42,10 @@ jobs:
             echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
             echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
           elif [ "${{ github.ref }}" = "refs/heads/lab" ]; then
-            DOCS_URL="https://docs-lab.docker.com"
+            DOCS_URL="https://docs-labs.docker.com"
             DOCS_AWS_IAM_ROLE="arn:aws:iam::710015040892:role/labs-docs-docker.github.io-20220728143917865600000003"
             DOCS_S3_BUCKET="labs-docs-docker.github.io"
-            DOCS_S3_CONFIG="_website-config-docs-lab.json"
+            DOCS_S3_CONFIG="_website-config-docs-labs.json"
           else
             echo >&2 "ERROR: unknown branch ${{ github.ref }}"
             exit 1
