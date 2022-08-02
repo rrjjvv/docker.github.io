@@ -46,8 +46,10 @@ RUN --mount=type=bind,target=. \
   --mount=type=bind,from=releaser,source=/out/releaser,target=/usr/bin/releaser \
   --mount=type=secret,id=AWS_ACCESS_KEY_ID \
   --mount=type=secret,id=AWS_SECRET_ACCESS_KEY \
+  --mount=type=secret,id=AWS_SESSION_TOKEN \
   AWS_ACCESS_KEY_ID=$(cat /run/secrets/AWS_ACCESS_KEY_ID) \
   AWS_SECRET_ACCESS_KEY=$(cat /run/secrets/AWS_SECRET_ACCESS_KEY) \
+  AWS_SESSION_TOKEN=$(cat /run/secrets/AWS_SESSION_TOKEN) \
   releaser aws s3-update-config
 
 FROM base AS aws-lambda-invoke
@@ -56,6 +58,8 @@ ARG AWS_LAMBDA_FUNCTION
 RUN --mount=type=bind,from=releaser,source=/out/releaser,target=/usr/bin/releaser \
   --mount=type=secret,id=AWS_ACCESS_KEY_ID \
   --mount=type=secret,id=AWS_SECRET_ACCESS_KEY \
+  --mount=type=secret,id=AWS_SESSION_TOKEN \
   AWS_ACCESS_KEY_ID=$(cat /run/secrets/AWS_ACCESS_KEY_ID) \
   AWS_SECRET_ACCESS_KEY=$(cat /run/secrets/AWS_SECRET_ACCESS_KEY) \
+  AWS_SESSION_TOKEN=$(cat /run/secrets/AWS_SESSION_TOKEN) \
   releaser aws lambda-invoke
